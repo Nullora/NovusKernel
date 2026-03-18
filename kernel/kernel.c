@@ -1,4 +1,15 @@
-void main() {
-    __asm__ volatile ("outb %0, %1" : : "a"((unsigned char)0x42), "Nd"((unsigned short)0x501));
+//BootInfo struct so i can take from bootloader
+typedef struct{
+    void* FrameBufferBase;
+    unsigned long long FrameBufferSize;
+    unsigned long long Width;
+    unsigned long long Height;
+    unsigned long long PixelsPerScanLine;
+} BootInfo;
+void main(BootInfo* bootinfo) {
+    unsigned int* fb = (unsigned int*)bootinfo->FrameBufferBase;
+    for(unsigned long long i = 0; i<bootinfo->FrameBufferSize/4;i++){
+        fb[i] = 0x00FF00;
+    }
     for(;;);
 }

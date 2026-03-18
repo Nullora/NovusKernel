@@ -1,8 +1,18 @@
 #include <efi.h>
 #include <efilib.h>
 #include<elf.h>
-#include <stddef.h>  // for size_t
-#include <string.h>  // for memcmp declaration
+#include <stddef.h>
+#include <string.h>
+
+//BootInfo struct so i can pass it to kernel
+typedef struct{
+    void* FrameBufferBase;
+    UINTN FrameBufferSize;
+    UINTN Width;
+    UINTN Height;
+    UINTN PixelsPerScanLine;
+} BootInfo;
+
 
 EFI_FILE* LoadFile(EFI_FILE* dir, CHAR16* path, EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE* SystemTable){
     EFI_FILE* LoadedFile;
@@ -88,6 +98,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
     //check header compatibility
     Print(L"Checking header compatibility\n");
     if(
+        //if youre reading this, know this blob was legit hell on fucking earth
         memcmp(&header.e_ident[EI_MAG0], ELFMAG, SELFMAG) != 0 ||
         header.e_ident[EI_CLASS] != ELFCLASS64 ||
         header.e_ident[EI_DATA] != ELFDATA2LSB ||
@@ -113,6 +124,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
     ){
         switch (phdrs->p_type){
             case PT_LOAD:
+                // this blob was hell too
                 int pages = (phdrs->p_memsz + 0x1000 - 1) / 0x1000;
                 Elf64_Addr segment = phdrs->p_paddr;
                 uefi_call_wrapper(SystemTable->BootServices->AllocatePages, 4, AllocateAddress, EfiLoaderData, pages, &segment);
@@ -122,12 +134,33 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
                 break;
         }
     }
+    //graphics output protocol setup
+    EFI_GUID GopGuid = EFI_GRAPHICS_OUTPUT_PROTOCOL_GUID;
+    EFI_GRAPHICS_OUTPUT_PROTOCOL *gop;
+    int status = uefi_call_wrapper(SystemTable->BootServices->LocateProtocol, 3, &GopGuid, NULL, (void **)&gop);
+    if(EFI_ERROR(status)) Print(L"Unable to locate GOP \n");
+    BootInfo bootinfo;
+    bootinfo.FrameBufferBase = (void*)gop->Mode->FrameBufferBase;
+    bootinfo.FrameBufferSize = gop->Mode->FrameBufferSize;
+    bootinfo.Width = gop->Mode->Info->HorizontalResolution;
+    bootinfo.Height = gop->Mode->Info->VerticalResolution;
+    bootinfo.PixelsPerScanLine = gop->Mode->Info->PixelsPerScanLine;
     Print(L"NovusKernel Loaded\n");
-    void (*KernelStart)() = ((__attribute__((sysv_abi)) void (*) ()) header.e_entry);
-    KernelStart();
-    //Go back to boot menu on input
-    EFI_STATUS s = uefi_call_wrapper(SystemTable->ConIn->Reset, 2, SystemTable->ConIn, FALSE);
-    EFI_INPUT_KEY key;
-    while ((uefi_call_wrapper(SystemTable->ConIn->ReadKeyStroke, 2, SystemTable->ConIn, &key)) == EFI_NOT_READY);
-    return EFI_SUCCESS;
+    //exit boot services
+    UINTN mMapSize = 0;
+    EFI_MEMORY_DESCRIPTOR* memMap =  NULL;
+    UINTN MapKey, DescriptorSize; 
+    UINT32 DescriptorVer;
+    
+    uefi_call_wrapper(SystemTable->BootServices->GetMemoryMap, 5, &mMapSize, memMap, &MapKey, &DescriptorSize, &DescriptorVer);
+    uefi_call_wrapper(SystemTable->BootServices->AllocatePool, 3, EfiLoaderData, mMapSize, (void**)&memMap);
+    uefi_call_wrapper(SystemTable->BootServices->GetMemoryMap, 5, &mMapSize, memMap, &MapKey, &DescriptorSize, &DescriptorVer);
+    uefi_call_wrapper(SystemTable->BootServices->ExitBootServices, 2, ImageHandle, MapKey);
+
+
+
+
+
+    void (*KernelStart)(BootInfo*) = ((__attribute__((sysv_abi)) void (*) (BootInfo*)) header.e_entry);
+    KernelStart(&bootinfo);
 }
