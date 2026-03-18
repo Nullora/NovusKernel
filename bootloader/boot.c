@@ -123,8 +123,8 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
         }
     }
     Print(L"NovusKernel Loaded\n");
-    void (*KernelStart)() = ((__attribute__((sysv_abi)) void (*) ()) header.e_entry);
-    KernelStart();
+    int (*KernelStart)() = ((__attribute__((sysv_abi)) int (*) ()) header.e_entry);
+    Print(L"%d\r\n", KernelStart());
     //Go back to boot menu on input
     EFI_STATUS s = uefi_call_wrapper(SystemTable->ConIn->Reset, 2, SystemTable->ConIn, FALSE);
     EFI_INPUT_KEY key;
