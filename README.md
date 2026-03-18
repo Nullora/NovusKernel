@@ -13,4 +13,4 @@ It is reccomended to not run it on any real machine as it may break unpredictabl
 # Thanks
 Thanks to my previous tools Ndeploy, NUB and NCC for making this soo much easier, without those this wouldve taken an extra week.
 # What to expect when you run it
-If you got it working well with the NUB tool i provided, your QEMU screen should turn bright green! that means the kernel successfully loaded, and tha gop was found and initialized and passed to the kernel!
+If you got it working well with the NUB tool i provided, your QEMU screen should turn purple! that means the kernel successfully loaded, and tha gop was found and initialized and passed to the kernel!
