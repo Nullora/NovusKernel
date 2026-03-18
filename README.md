@@ -5,7 +5,7 @@ Use my tool NUB (on my github) to run and test this and modify it comfortably in
 - After cloning, run **nub clean boot** in /bootloader/ then **nub make boot**.
 - Same for /kernel/ but after **nub clean kernel** run **nub kernel kernel**. 
 - Then go back to /bootloader/ and run **nub run boot**.
-- To flash this onto a USB and boot from it (idk why ud do that) run **sudo nub flash boot** but make sure to check the NUB readme first.
+- To flash this onto a USB and boot from it (idk why ud do that) run **sudo nub flash boot** but make sure to check the NUB readme first, all found on my profile.
 # Note
 This bootloader and preset kernel works on my real hardware, it has been tested multiple times. 
 It is reccomended to not run it on any real machine as it may break unpredictably. I trust my creation, you don't have to.
