@@ -1,5 +1,5 @@
 # NovusKernel
-This isn't even a function kernel yet, it's just the bootloader that im proud of! 
+This isn't even a functional kernel yet, it's just the bootloader that im proud of! 
 - dev.to artice [here](https://dev.to/nullora/i-made-my-own-bootloader-at-16-it-was-horrible-it-was-worth-it-2nc1). Go check it out for more info!
 # Usage
 Use my tool NUB (on my github) to run and test this and modify it comfortably in QeMu.
@@ -7,10 +7,10 @@ Use my tool NUB (on my github) to run and test this and modify it comfortably in
 - Same for /kernel/ but after **nub clean kernel** run **nub kernel kernel**. 
 - Then go back to /bootloader/ and run **nub run boot**.
 - To flash this onto a USB and boot from it (idk why ud do that) run **sudo nub flash boot** but make sure to check the NUB readme first, all found on my profile.
-# Note
-This bootloader and preset kernel works on my real hardware, it has been tested multiple times. 
-It is reccomended to not run it on any real machine as it may break unpredictably. I trust my creation, you don't have to.
-# Thanks
-Thanks to my previous tools Ndeploy, NUB and NCC for making this soo much easier, without those this wouldve taken an extra week.
-# What to expect when you run it
-If you got it working well with the NUB tool i provided, your QEMU screen should turn purple! that means the kernel successfully loaded, and tha gop was found and initialized and passed to the kernel!
+# Warning
+This bootloader and preset kernel work on my real hardware, it has been tested multiple times. 
+It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.
+# Contributions
+As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/kernel.c** in the repo.
+# Updates
+- Made my own memcpy() to quickly copy from backbuffer to screen buffer to reduce waterfall effect which is not fully removed yet.
