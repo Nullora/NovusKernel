@@ -11,7 +11,6 @@ Use my tool NUB (on my github) to run and test this and modify it comfortably in
 This bootloader and preset kernel works on my real hardware, it has been tested multiple times. 
 It is reccomended to not run it on any real machine as it may break unpredictably. I trust my creation, you don't have to.
 # Thanks
-Thanks to my previous tools Ndeploy and NUB for making this soo much easier, without those this wouldve taken an extra week
-# WARNING
-If you have tested this on you QeMu and ran into QeMu instantly closing, thats supposed to happen, it's in the kernel code.
-It's just me testing if it successfully jumps from bootloader to kernel.
+Thanks to my previous tools Ndeploy, NUB and NCC for making this soo much easier, without those this wouldve taken an extra week.
+# What to expect when you run it
+If you got it working well with the NUB tool i provided, your QEMU screen should turn bright green! that means the kernel successfully loaded, and tha gop was found and initialized and passed to the kernel!
