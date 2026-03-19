@@ -11,6 +11,7 @@ Use my tool NUB (on my github) to run and test this and modify it comfortably in
 This bootloader and preset kernel work on my real hardware, it has been tested multiple times. 
 It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.
 # Contributions
-As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/kernel.c** in the repo.
+As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files so I dont have one big fat blob of code in kernel.c
 # Updates
+- Made memset() and changed file organization.
 - Made my own memcpy() to quickly copy from backbuffer to screen buffer to reduce waterfall effect which is not fully removed yet.
