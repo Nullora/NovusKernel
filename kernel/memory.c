@@ -1,7 +1,8 @@
 #include"memory.h"
+#include"boot.h"
+unsigned long long heap_base;
+unsigned long long heap_size;
 
-
-//writing my own memcpy :c
 void* memcpy(void* dest, void* src, unsigned long long n) {
     __uint128_t* d128 = dest;
     __uint128_t* s128 = src;
@@ -23,4 +24,15 @@ void* memset(void* dest, int value, unsigned long long n){
         d[i]=value;
     }
     return dest;
+}
+void init_heap(BootInfo* bootinfo){
+    unsigned long long pages=0;
+    for(unsigned long long i=0;i<bootinfo->mMapSize/bootinfo->DescriptorSize;i++){
+        //this line alone made me lose my mind for 30mins
+        EFI_MEMORY_DESCRIPTOR* desc = (EFI_MEMORY_DESCRIPTOR*)((char*)bootinfo->memMap+i*bootinfo->DescriptorSize);
+        if(desc->Type==7 && desc->NumberOfPages>pages){
+            heap_size = desc->NumberOfPages*4096;
+            heap_base = desc->PhysicalStart;
+        }
+    }
 }

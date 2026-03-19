@@ -11,6 +11,9 @@ typedef struct{
     UINTN Width;
     UINTN Height;
     UINTN PixelsPerScanLine;
+    UINTN mMapSize;
+    UINTN DescriptorSize;
+    EFI_MEMORY_DESCRIPTOR* memMap;
 } BootInfo;
 
 
@@ -155,12 +158,12 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
     uefi_call_wrapper(SystemTable->BootServices->GetMemoryMap, 5, &mMapSize, memMap, &MapKey, &DescriptorSize, &DescriptorVer);
     uefi_call_wrapper(SystemTable->BootServices->AllocatePool, 3, EfiLoaderData, mMapSize, (void**)&memMap);
     uefi_call_wrapper(SystemTable->BootServices->GetMemoryMap, 5, &mMapSize, memMap, &MapKey, &DescriptorSize, &DescriptorVer);
+    //pass memorymap to kernel
+    bootinfo.memMap = memMap;
+    bootinfo.mMapSize = mMapSize;
+    bootinfo.DescriptorSize = DescriptorSize;
     uefi_call_wrapper(SystemTable->BootServices->ExitBootServices, 2, ImageHandle, MapKey);
-
-
-
-
-
+    //start kernel
     void (*KernelStart)(BootInfo*) = ((__attribute__((sysv_abi)) void (*) (BootInfo*)) header.e_entry);
     KernelStart(&bootinfo);
 }
