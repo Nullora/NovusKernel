@@ -16,10 +16,12 @@ It is reccomended to not run it on any real machine as it may break unpredictabl
 - This version worked on my real machine.
 # Contributions
 As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files so I dont have one big fat blob of code in kernel.c
-# 
+# Updates
+- free() now actually does something.
+- malloc() upgraded to free-list allocator.
 - Fixed shitty init_heap() and added double bufferring
 - Made draw_char() draw_string() draw_hex() and clear_screen()
 - Made malloc() kinda sketchy to run on real hardware, optimized for qemu as of right now.
 - Made init_heap()
 - Made memset() and changed file organization.
-- Made my own memcpy() to quickly copy from backbuffer to screen buffer to reduce waterfall effect which is not fully removed yet.
+- Made my own memcpy() to quickly copy from backbuffer to screen buffer.
