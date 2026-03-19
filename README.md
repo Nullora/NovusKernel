@@ -2,6 +2,8 @@
 This isn't even a functional kernel yet, it's just the bootloader that im proud of! 
 - dev.to artice [here](https://dev.to/nullora/i-made-my-own-bootloader-at-16-it-was-horrible-it-was-worth-it-2nc1). Go check it out for more info!
 
+<img width="2880" height="2160" alt="image" src="https://github.com/user-attachments/assets/8a876d4b-30ff-4bd2-bb52-2120ed9fc93b" />
+
 # Usage
 Use my tool NUB (on my github) to run and test this and modify it comfortably in QeMu.
 - After cloning, run **nub clean boot** in /bootloader/ then **nub make boot**.
