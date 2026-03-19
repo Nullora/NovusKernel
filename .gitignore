@@ -1,6 +1,2 @@
 /.ndep_back
-/kernel/*.elf
-/kernel/*.o
-/bootloader/*.efi
-/bootloader/*.o
-/bootloader/*.so
+/kernel/build

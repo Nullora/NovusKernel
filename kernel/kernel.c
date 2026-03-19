@@ -1,3 +1,4 @@
+#include"memory.h"
 //BootInfo struct so i can take from bootloader
 typedef struct{
     void* FrameBufferBase;
