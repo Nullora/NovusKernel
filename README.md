@@ -1,6 +1,7 @@
 # NovusKernel
 This isn't even a functional kernel yet, it's just the bootloader that im proud of! 
 - dev.to artice [here](https://dev.to/nullora/i-made-my-own-bootloader-at-16-it-was-horrible-it-was-worth-it-2nc1). Go check it out for more info!
+
 # Usage
 Use my tool NUB (on my github) to run and test this and modify it comfortably in QeMu.
 - After cloning, run **nub clean boot** in /bootloader/ then **nub make boot**.
