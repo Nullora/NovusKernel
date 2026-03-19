@@ -13,7 +13,7 @@ Use my tool NUB (on my github) to run and test this and modify it comfortably in
 # Warning
 This bootloader and preset kernel work on my real hardware, it has been tested multiple times. 
 It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.
-- This version crashed on my real machine.
+- This version worked on my real machine. (Only cz im actively avoiding the init_heap() bug and printing data to debug it)
 # Contributions
 As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files so I dont have one big fat blob of code in kernel.c
 # Updates

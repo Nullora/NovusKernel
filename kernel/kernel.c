@@ -7,6 +7,7 @@ void main(BootInfo* bootinfo) {
     unsigned int* screenbuffer = bootinfo->FrameBufferBase;
     void* backbuffer = malloc(bootinfo->FrameBufferSize);
     clear_screen(0x301934, bootinfo, screenbuffer);
+    
     draw_hex(heap_base, 50, 50, 0xFFFFFF, bootinfo,screenbuffer);
     draw_hex((unsigned long long)screenbuffer, 50, 70, 0xFFFFFF, bootinfo,screenbuffer);
     draw_string("Printed from NovusKernel and loaded by NBL", 50, 90, 0xFFFFFF, bootinfo, screenbuffer);
