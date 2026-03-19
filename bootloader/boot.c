@@ -158,6 +158,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
     UINT32 DescriptorVer;
     
     uefi_call_wrapper(SystemTable->BootServices->GetMemoryMap, 5, &mMapSize, memMap, &MapKey, &DescriptorSize, &DescriptorVer);
+    mMapSize += 2 * DescriptorSize;
     uefi_call_wrapper(SystemTable->BootServices->AllocatePool, 3, EfiLoaderData, mMapSize, (void**)&memMap);
     uefi_call_wrapper(SystemTable->BootServices->GetMemoryMap, 5, &mMapSize, memMap, &MapKey, &DescriptorSize, &DescriptorVer);
     //pass memorymap to kernel
