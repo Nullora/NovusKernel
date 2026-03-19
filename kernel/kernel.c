@@ -13,5 +13,6 @@ void main(BootInfo* bootinfo) {
     draw_string(">Double buffering and heap setup", 50, 90, 0xFFFFFF, bootinfo, backbuffer);
 
     memcpy(screenbuffer, backbuffer, bootinfo->FrameBufferSize);
+    free(backbuffer);
     for(;;);
 }

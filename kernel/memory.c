@@ -3,7 +3,7 @@
 unsigned long long heap_base;
 unsigned long long heap_size;
 unsigned long long current_heap_pos;
-
+MemHeader* heap_start = 0;
 void* memcpy(void* dest, void* src, unsigned long long n) {
     __uint128_t* d128 = dest;
     __uint128_t* s128 = src;
@@ -40,8 +40,40 @@ void init_heap(BootInfo* bootinfo){
         }
     current_heap_pos = heap_base;
 }
+//this was the single worst function i ever wrote in my fucking life
 void* malloc(unsigned long long x){
-    void* chp = (void*)current_heap_pos;
-    current_heap_pos += x;
-    return chp;
+    if(heap_start==0){
+        MemHeader* b = (MemHeader*)current_heap_pos;
+        b->block_size = x;
+        b->usage = 1;
+        b->next_header = 0;
+        current_heap_pos += sizeof(MemHeader)+x;
+        heap_start = b;
+        return b+1;
+    }
+    else{
+        MemHeader* b = heap_start;
+        MemHeader* last_block = heap_start;
+        while(b->next_header!=0){
+            if(b->usage==0 && b->block_size>=x){
+                current_heap_pos = (unsigned long long)b;
+                b->usage=1;
+                return b+1;
+            }else{
+                last_block = b;
+                b = b->next_header;
+            }
+        }
+        MemHeader* c = (MemHeader*)current_heap_pos;
+        last_block->next_header = c;
+        c->block_size = x;
+        c->usage = 1;
+        c->next_header = 0;
+        current_heap_pos += sizeof(MemHeader)+x;
+        return c+1;
+    }
+}
+void free(void* x){
+    MemHeader* y = (MemHeader*)x-1;
+    y->usage = 0;
 }

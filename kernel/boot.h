@@ -22,5 +22,13 @@ typedef struct{
     unsigned long long DescriptorSize;
     EFI_MEMORY_DESCRIPTOR* memMap;
 } BootInfo;
+typedef struct MemHeader MemHeader;
+//for malloc() and free()
+struct MemHeader {
+    unsigned long long block_size;
+    MemHeader* next_header;
+    int usage;
+};
+
 
 #endif
