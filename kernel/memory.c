@@ -2,6 +2,7 @@
 #include"boot.h"
 unsigned long long heap_base;
 unsigned long long heap_size;
+unsigned long long current_heap_pos;
 
 void* memcpy(void* dest, void* src, unsigned long long n) {
     __uint128_t* d128 = dest;
@@ -30,9 +31,18 @@ void init_heap(BootInfo* bootinfo){
     for(unsigned long long i=0;i<bootinfo->mMapSize/bootinfo->DescriptorSize;i++){
         //this line alone made me lose my mind for 30mins
         EFI_MEMORY_DESCRIPTOR* desc = (EFI_MEMORY_DESCRIPTOR*)((char*)bootinfo->memMap+i*bootinfo->DescriptorSize);
-        if(desc->Type==7 && desc->NumberOfPages>pages){
+        if(desc->Type==7 && desc->NumberOfPages>pages &&
+        !(desc->PhysicalStart < (unsigned long long)bootinfo->FrameBufferBase + bootinfo->FrameBufferSize &&
+        desc->PhysicalStart + desc->NumberOfPages*4096 > (unsigned long long)bootinfo->FrameBufferBase)){
             heap_size = desc->NumberOfPages*4096;
             heap_base = desc->PhysicalStart;
+            pages = desc->NumberOfPages;
+            }
         }
-    }
+    current_heap_pos = heap_base;
+}
+void* malloc(unsigned long long x){
+    void* chp = (void*)current_heap_pos;
+    current_heap_pos += x;
+    return chp;
 }
