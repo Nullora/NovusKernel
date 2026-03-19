@@ -1,8 +1,8 @@
 # NovusKernel
-This isn't even a functional kernel yet, it's just the bootloader that im proud of! 
+Barely functional kernel. Loaded by my custom bootloader NBL. Debugging this was legit hell on earth.
 - dev.to artice [here](https://dev.to/nullora/i-made-my-own-bootloader-at-16-it-was-horrible-it-was-worth-it-2nc1). Go check it out for more info!
 
-<img width="2880" height="2160" alt="image" src="https://github.com/user-attachments/assets/8a876d4b-30ff-4bd2-bb52-2120ed9fc93b" />
+<img width="887" height="318" alt="image" src="https://github.com/user-attachments/assets/17b9d958-2302-4620-bb0a-50e9489caa2c" />
 
 # Usage
 Use my tool NUB (on my github) to run and test this and modify it comfortably in QeMu.
