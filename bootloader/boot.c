@@ -149,6 +149,8 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
     bootinfo.Height = gop->Mode->Info->VerticalResolution;
     bootinfo.PixelsPerScanLine = gop->Mode->Info->PixelsPerScanLine;
     Print(L"NovusKernel Loaded\n");
+    Print(L"If you still see this, something is horribly wrong with the kernel...\n");
+
     //exit boot services
     UINTN mMapSize = 0;
     EFI_MEMORY_DESCRIPTOR* memMap =  NULL;

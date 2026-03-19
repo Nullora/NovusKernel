@@ -27,13 +27,12 @@ void* memset(void* dest, int value, unsigned long long n){
     return dest;
 }
 void init_heap(BootInfo* bootinfo){
+    heap_base = 0xDEADBEEF;
     unsigned long long pages=0;
     for(unsigned long long i=0;i<bootinfo->mMapSize/bootinfo->DescriptorSize;i++){
         //this line alone made me lose my mind for 30mins
         EFI_MEMORY_DESCRIPTOR* desc = (EFI_MEMORY_DESCRIPTOR*)((char*)bootinfo->memMap+i*bootinfo->DescriptorSize);
-        if(desc->Type==7 && desc->NumberOfPages>pages &&
-        !(desc->PhysicalStart < (unsigned long long)bootinfo->FrameBufferBase + bootinfo->FrameBufferSize &&
-        desc->PhysicalStart + desc->NumberOfPages*4096 > (unsigned long long)bootinfo->FrameBufferBase)){
+        if(desc->Type==7 && desc->NumberOfPages>pages){
             heap_size = desc->NumberOfPages*4096;
             heap_base = desc->PhysicalStart;
             pages = desc->NumberOfPages;
