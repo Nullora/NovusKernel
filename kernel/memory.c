@@ -1,5 +1,6 @@
 #include"memory.h"
 #include"boot.h"
+
 unsigned long long heap_base;
 unsigned long long heap_size;
 unsigned long long current_heap_pos;
