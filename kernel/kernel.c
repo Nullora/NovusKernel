@@ -1,8 +1,10 @@
 #include"memory.h"
 #include"boot.h"
 #include"tty.h"
+#include"gdt.h"
 
 void main(BootInfo* bootinfo) {
+    init_gdt();
     init_heap(bootinfo);
     unsigned int* backbuffer = bootinfo->FrameBufferBase;
     int textcolor = 0x006400;
