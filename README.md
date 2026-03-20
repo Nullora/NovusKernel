@@ -15,7 +15,7 @@ It is reccomended to not run it on any real machine as it may break unpredictabl
 
 - This version froze on my real machine. if you do wanna flash it, expect the same result.
 # Contributions
-As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files. Scroll to **Known issues** if you wanna contribute.
+As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files. Scroll to **Known issues**, it is split to easy and hard categories. If you're new, start with the easy, it's a reliable way to learn!
 # What works
 - Custom UEFI bootloader with ELF64 loader
 - Physical memory detection with UEFI memory map
