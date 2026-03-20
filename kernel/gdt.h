@@ -17,9 +17,29 @@ typedef struct __attribute__((packed)){
     unsigned long long GDT_address;
 } GDTR;
 
+
+//idt hell
+typedef struct __attribute__((packed)){
+    unsigned short offset_low;
+    unsigned short selector;
+    unsigned char ist;
+    unsigned char flags;
+    unsigned short offset_mid;
+    unsigned int offset_high;
+    unsigned int zero;
+} IDT;
+
+typedef struct __attribute__((packed)){
+    unsigned short IDT_size;
+    unsigned long long IDT_address;
+} IDTR;
+
+
 //assembly function
 extern void load_gdt(GDTR* gdtr);
+extern void load_idt(IDTR* idtr);
 void init_gdt();
+void init_idt();
 
 
 
