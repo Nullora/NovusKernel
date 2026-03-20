@@ -15,10 +15,14 @@ It is reccomended to not run it on any real machine as it may break unpredictabl
 
 - This version froze on my real machine. if you do wanna flash it, expect the same result.
 # Contributions
-As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files so I dont have one big fat blob of code in kernel.c
+As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files. Scroll to **Known issues** if you wanna contribute.
 # What works
 - Custom UEFI bootloader with ELF64 loader
 - Physical memory detection with UEFI memory map
 - Free list heap allocator (malloc/free)
 - Bitmap TTY (draw_char, draw_string, clear_screen)
 - Custom memcpy and memset
+# Known issues (hard)
+- Malloc() and free() having problems running on real hardware. see more at **/kernel/memory.c line 45**.
+# Known issues (easy)
+No easy known issues as of right now ;(
