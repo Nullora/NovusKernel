@@ -13,11 +13,11 @@ Use my tool [NUB](https://github.com/Nullora/NUB) to run and test this and modif
 This bootloader and preset kernel work on my real hardware, it has been tested multiple times. 
 It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.
 
-- This version somehow froze QEMU and worked on a real machine (?)
+- This version worked on my real machine
 # Contributions
 As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files. Scroll to **Known issues**, it is split to easy and hard categories. If you're new, start with the easy, it's a reliable way to learn!
 # What works
-- IDT table passed to CPU, even closer to keyboard input. (idk if the idt table is working dude its just exploding my machine now)
+- IDT table passed to CPU, even closer to keyboard input. (the table is working its just that i was stupid and didnt have a stack)
 - GDT table passed to CPU, future interupts. Prepping for keyboard input.
 - Custom UEFI bootloader with ELF64 loader
 - Physical memory detection with UEFI memory map
@@ -25,6 +25,6 @@ As this is super early dev, you can easily find simple bugs and fix them. Not on
 - Bitmap TTY (draw_char, draw_string, clear_screen)
 - Custom memcpy and memset
 # Known issues (hard)
-- Malloc() and free() having problems running on real hardware. see more at **/kernel/memory.c line 30**.
+No known issues as of right now ;)
 # Known issues (easy)
 No easy known issues as of right now ;(
