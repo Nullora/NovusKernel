@@ -18,7 +18,7 @@ It is reccomended to not run it on any real machine as it may break unpredictabl
 
 - This version worked on my real machine
 # Contributions
-As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files. Scroll to **Known issues**, it is split to easy and hard categories. If you're new, start with the easy, it's a reliable way to learn!
+Look at **CONTRIBUTING.md** for more information.
 # What works
 - IDT table passed to CPU, even closer to keyboard input. (the table is working its just that i was stupid and didnt have a stack)
 - GDT table passed to CPU, future interupts. Prepping for keyboard input.
@@ -27,7 +27,3 @@ As this is super early dev, you can easily find simple bugs and fix them. Not on
 - Free list heap allocator (malloc/free)
 - Bitmap TTY (draw_char, draw_string, clear_screen)
 - Custom memcpy and memset
-# Known issues (hard)
-No known issues as of right now ;)
-# Known issues (easy)
-No easy known issues as of right now ;(
