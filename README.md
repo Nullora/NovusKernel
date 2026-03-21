@@ -3,26 +3,29 @@ A 64-bit x86 kernel built from scratch in C with no standard library, loaded by 
 
 <img width="887" height="318" alt="image" src="https://github.com/user-attachments/assets/17b9d958-2302-4620-bb0a-50e9489caa2c" />
 
-# Usage
-- Run:
-```c
-// MAKE SURE TO RUN THESE IN THE ROOT DIRECTORY (/NovusKernel)
-make clean  // clean previous build files
-make // build kernel and bootloader
-make run // run in qemu
-```
-# Warning
-This bootloader and preset kernel work on my real hardware, it has been tested multiple times. 
-It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.
+# Project Overview
 
-- This version worked on my real machine
-# Contributions
-Look at **CONTRIBUTING.md** for more information.
-# What works
-- IDT table passed to CPU, even closer to keyboard input. (the table is working its just that i was stupid and didnt have a stack)
-- GDT table passed to CPU, future interupts. Prepping for keyboard input.
+NovusKernel is an educational kernel project showcasing low-level OS concepts, including:
+
 - Custom UEFI bootloader with ELF64 loader
-- Physical memory detection with UEFI memory map
+- IDT and GDT table setup
+- Physical memory detection via UEFI memory map
 - Free list heap allocator (malloc/free)
 - Bitmap TTY (draw_char, draw_string, clear_screen)
 - Custom memcpy and memset
+
+# Usage
+```bash
+# make sure you are in the root directory (/NovusKernel)
+make clean    # clean previous build files
+make          # build kernel and bootloader
+make run      # run in QEMU
+make flash    # flash onto USB (use caution)
+```
+# Warning
+This bootloader and preset kernel work on my real hardware and has been tested multiple times. 
+It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.
+
+- This version worked on my real machine
+# Contributing & how to help
+Look at **CONTRIBUTING.md** for more a detailed explanation.
