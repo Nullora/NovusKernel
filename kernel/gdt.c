@@ -28,7 +28,10 @@ void init_idt(){
     IDTR idtr;
     idtr.IDT_size = sizeof(IDT_Table)-1;
     idtr.IDT_address = (unsigned long long)&IDT_Table;
-    for(unsigned long long i=0;i<256;i++){
+    for(unsigned long long i=0;i<31;i++){
+            set_idt_entry(i, (void*)panic);
+    }
+    for(unsigned long long i=32; i<254;i++){
         set_idt_entry(i, (void*)dummy_handler);
     }
     set_idt_entry(33, keyboard_handler);
@@ -103,3 +106,9 @@ __attribute__((interrupt)) void keyboard_handler(void* frame){
     outb(0x20, 0x20);
 }
 __attribute__((interrupt)) void dummy_handler(void* frame){}
+__attribute__((interrupt)) void panic(void* frame){
+    __asm__ volatile ("hlt");
+}
+__attribute__((interrupt)) void panic_with_error(void* frame, unsigned long long error_code) {
+    asm volatile ("cli; hlt");
+}

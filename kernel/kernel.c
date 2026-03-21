@@ -4,10 +4,10 @@
 #include"gdt.h"
 
 void main(BootInfo* bootinfo) {
+    __asm__ volatile ("mov $0x500000, %rsp");
     init_gdt();
     init_idt();
     init_pic();
-    enable_interrupts();
     init_heap(bootinfo); 
 
     unsigned int* backbuffer = bootinfo->FrameBufferBase;

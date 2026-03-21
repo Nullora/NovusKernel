@@ -52,5 +52,7 @@ void init_pic();
 extern unsigned char scancode;
 void keyboard_handler(void* frame) __attribute__((interrupt));
 __attribute__((interrupt)) void dummy_handler(void* frame); //dummy handler for all the shit interrupts cz its triple faulting
+__attribute__((interrupt)) void panic(void* frame); // i need this for debugging it just halts using inline assembly
+__attribute__((interrupt)) void panic_with_error(void* frame, unsigned long long error_code); //panic() but more detail in debugging
 
 #endif

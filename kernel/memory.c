@@ -28,7 +28,7 @@ void* memset(void* dest, int value, unsigned long long n){
     return dest;
 }
 void init_heap(BootInfo* bootinfo){
-    heap_base = 0xDEADBEEF;
+    heap_base = 0x0;
     unsigned long long pages=0;
     for(unsigned long long i=0;i<bootinfo->mMapSize/bootinfo->DescriptorSize;i++){
         //this line alone made me lose my mind for 30mins
@@ -37,7 +37,6 @@ void init_heap(BootInfo* bootinfo){
             heap_size = desc->NumberOfPages*4096;
             heap_base = desc->PhysicalStart;
             pages = desc->NumberOfPages;
-            heap_base = 0x4000000;
             }
         }
     current_heap_pos = heap_base;
@@ -59,7 +58,6 @@ void* malloc(unsigned long long x){
         MemHeader* last_block = heap_start;
         while(b->next_header!=0){
             if(b->usage==0 && b->block_size>=x){
-                current_heap_pos = (unsigned long long)b;
                 b->usage=1;
                 return b+1;
             }else{
