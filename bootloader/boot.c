@@ -76,7 +76,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
     Print(L"ImageHandle: %lx\n", (UINT64)ImageHandle);
     Print(L"Loading NovusKernel. \n");
     //Load kernel
-    EFI_FILE* Kernel = LoadFile(NULL,L"kernel.elf", ImageHandle, SystemTable);
+    EFI_FILE* Kernel = LoadFile(NULL,L"main.elf", ImageHandle, SystemTable);
     if(Kernel==NULL){
         Print(L"FATAL: KERNEL FAILED TO LOAD \n");
 

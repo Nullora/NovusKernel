@@ -7,6 +7,7 @@ void main(BootInfo* bootinfo) {
     init_gdt();
     init_idt();
     init_pic();
+    enable_interrupts();
     init_heap(bootinfo); 
 
     unsigned int* backbuffer = bootinfo->FrameBufferBase;
