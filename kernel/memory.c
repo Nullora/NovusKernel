@@ -33,7 +33,7 @@ void init_heap(BootInfo* bootinfo){
     for(unsigned long long i=0;i<bootinfo->mMapSize/bootinfo->DescriptorSize;i++){
         //this line alone made me lose my mind for 30mins
         EFI_MEMORY_DESCRIPTOR* desc = (EFI_MEMORY_DESCRIPTOR*)((char*)bootinfo->memMap+i*bootinfo->DescriptorSize);
-        if(desc->Type==7 && desc->NumberOfPages>pages && desc->PhysicalStart < 0x100000000){
+        if(desc->Type==7 && desc->NumberOfPages>pages && desc->PhysicalStart < 0x100000000 && desc->PhysicalStart >= 0x200000){
             heap_size = desc->NumberOfPages*4096;
             heap_base = desc->PhysicalStart;
             pages = desc->NumberOfPages;
