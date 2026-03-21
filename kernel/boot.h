@@ -25,12 +25,11 @@ typedef struct{
 
 //for malloc() and free()
 typedef struct MemHeader MemHeader;
-struct MemHeader {
+struct __attribute__((packed)) MemHeader {
     unsigned long long block_size;
     MemHeader* next_header;
     int usage;
 };
-
 
 
 #endif
