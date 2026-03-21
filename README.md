@@ -6,6 +6,7 @@ A 64-bit x86 kernel built from scratch in C with no standard library, loaded by 
 # Usage
 - Run:
 ```c
+// MAKE SURE TO RUN THESE IN THE ROOT DIRECTORY (/NovusKernel)
 make // to build the project
 make run // to run it on QEMU
 make clean // clean build files
