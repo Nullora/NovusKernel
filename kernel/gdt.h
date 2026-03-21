@@ -33,6 +33,7 @@ typedef struct __attribute__((packed)){
     unsigned short IDT_size;
     unsigned long long IDT_address;
 } IDTR;
+void set_idt_entry(int n, void* handler);
 
 
 //assembly function
@@ -47,9 +48,9 @@ void outb(unsigned short port, unsigned char value);
 unsigned char inb(unsigned short port);
 void init_pic();
 
-
 //actual interrupt functions (finally after all the shit setup)
 extern unsigned char scancode;
 void keyboard_handler(void* frame) __attribute__((interrupt));
+__attribute__((interrupt)) void dummy_handler(void* frame); //dummy handler for all the shit interrupts cz its triple faulting
 
 #endif

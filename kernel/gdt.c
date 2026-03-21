@@ -1,6 +1,5 @@
 #include"gdt.h"
 #include"memory.h"
-#include"tty.h"
 
 GDT GDT_Table[3];
 IDT IDT_Table[256];
@@ -29,6 +28,11 @@ void init_idt(){
     IDTR idtr;
     idtr.IDT_size = sizeof(IDT_Table)-1;
     idtr.IDT_address = (unsigned long long)&IDT_Table;
+    for(unsigned long long i=0;i<47;i++){
+        set_idt_entry(i, (void*)dummy_handler);
+    }
+    set_idt_entry(33, keyboard_handler);
+    load_idt(&idtr);
 }
 void set_idt_entry(int n, void* handler){
     IDT i;
@@ -47,7 +51,7 @@ void outb(unsigned short port, unsigned char value) { //remapping programmable i
 }
 unsigned char inb(unsigned short port) {
     unsigned char result;
-    __asm__ volatile ("inb %0, %1" : "=a"(result) : "Nd"(port));
+    __asm__ volatile ("inb %1, %0" : "=a"(result) : "Nd"(port));
     return result;
 }
 void init_pic(){
@@ -98,3 +102,4 @@ __attribute__((interrupt)) void keyboard_handler(void* frame){
     scancode = inb(0x60);
     outb(0x20, 0x20);
 }
+__attribute__((interrupt)) void dummy_handler(void* frame){}
