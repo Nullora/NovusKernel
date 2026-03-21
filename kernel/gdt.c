@@ -1,8 +1,10 @@
 #include"gdt.h"
 #include"memory.h"
+#include"tty.h"
 
 GDT GDT_Table[3];
 IDT IDT_Table[256];
+unsigned char scancode;
 void init_gdt(){
     //set gdt_table values
     memset(&GDT_Table[0], 0, sizeof(GDT));
@@ -38,4 +40,61 @@ void set_idt_entry(int n, void* handler){
     i.zero = 0;
     i.flags = 0x8E;
     IDT_Table[n]=i;
+}
+
+void outb(unsigned short port, unsigned char value) { //remapping programmable interrupt handler
+    __asm__ volatile ("outb %0, %1" : : "a"(value), "Nd"(port));
+}
+unsigned char inb(unsigned short port) {
+    unsigned char result;
+    __asm__ volatile ("inb %0, %1" : "=a"(result) : "Nd"(port));
+    return result;
+}
+void init_pic(){
+    outb(0x20, 0x11);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0xA0, 0x11);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0x21, 0x20);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0xA1, 0x28);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0x21, 0x04);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0xA1, 0x02);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0x21, 0x01);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0xA1, 0x01);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0x21, 0x0);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+    outb(0xA1, 0x0);
+
+    outb(0x80, 0); //dummy cz PIC is old hag
+
+}
+
+//keyboard interrupt handler
+__attribute__((interrupt)) void keyboard_handler(void* frame){
+    scancode = inb(0x60);
+    outb(0x20, 0x20);
 }

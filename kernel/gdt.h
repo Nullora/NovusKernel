@@ -38,9 +38,18 @@ typedef struct __attribute__((packed)){
 //assembly function
 extern void load_gdt(GDTR* gdtr);
 extern void load_idt(IDTR* idtr);
+extern void enable_interrupts();
 void init_gdt();
 void init_idt();
 
+//programmable interrupt handler
+void outb(unsigned short port, unsigned char value);
+unsigned char inb(unsigned short port);
+void init_pic();
 
+
+//actual interrupt functions (finally after all the shit setup)
+extern unsigned char scancode;
+void keyboard_handler(void* frame) __attribute__((interrupt));
 
 #endif
