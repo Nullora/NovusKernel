@@ -1,21 +1,70 @@
-# Contributions
-As this is super early dev, you can easily find simple bugs and fix them. Not only do you get familiar with kernel dev if you're just starting, but you also help me out a ton! kernel code can be found at **/kernel/** in the repo. It is split into multiple files. Scroll to **Known issues**, it is split categorized as easy and hard. If you're new, start with the easy, it's a reliable way to learn os dev and working with a team!
-# How to setup the project
-Setting up the project is extremely simple! Just run these:
-```c
-make clean // clean existing build files
-make // build the kernel and bootloader
-make run // to run on qemu
-make flash // to flash onto USB incase you wanna try it on real hardware
+# Contributing to NovusKernel
+Thanks for your interest in contributing! NovusKernel is a 64-bit x86 kernel built from scratch in C with a custom UEFI bootloader. Whether you’re new to OS development or just want to help improve documentation, you’re welcome here. Every contribution counts!
+
+# 1. How to Set Up the Project
+
+Clone the repo and build it:
+```shell
+git clone https://github.com/Nullora/NovusKernel.git
+cd NovusKernel
 ```
-# Where to start
-Start by checking out the code itself. Not in kernel.c as thats just a testing playground for now. 
-Check the other files like memory.c, tty.c, etc...
-# How to contribute
-You have to make sure the project builds and runs as intended. Do not open pull requests with code you didn't test.
-You also have to prove you tested it by attaching screenshots of the QEMU simulation to the pull request.
-Or send them to me privately via email or reddit for a quicker response, although I do reply quickly on GitHub aswell so don't think about it too much.
-# Known issues (hard)
-No known issues as of right now.
-# Known issues (easy)
-No known issues as of right now.
+```shell
+make clean      # Clean previous build files
+make            # Build the kernel and bootloader
+make run        # Run it in QEMU
+make flash      # Flash onto USB (use with caution)
+```
+- WARNING: The bootloader and kernel have been tested on real hardware. Running them on your machine may cause problems. QEMU is recommended for testing.
+
+# 2. Where to Start
+Look inside the /kernel/ directory.
+Do not start in kernel.c, as that’s just a playground for testing.
+Good starting points: memory.c, tty.c, gdt.c, etc.
+
+# 3. Good First Issues
+
+If you’re new to os dev, start with small tasks like:
+
+- Adding comments to memory.c or tty.c functions
+- Fixing typos in code or README
+- Adding small utility functions or helpers
+
+# 4. How to Contribute Code
+
+- Make your changes in small, testable pieces.
+- Build and test your changes using QEMU (make run).
+- Include proof of testing:
+- Screenshots of QEMU output
+- Optional: GIFs or video if it’s a visual feature
+- Submit a pull request, referencing the issue number (if any).
+Wait for review, I respond quickly!
+
+Even small contributions like documentation improvements are appreciated!!
+
+# 5. Roadmap / Future Goals
+
+Some of the upcoming features I plan to work on:
+
+- Keyboard input handling
+- Timer interrupts
+- Paging / virtual memory
+- Simple CLI / shell
+- Basic file system support
+- Additional TTY / display improvements
+
+Contributors can pick tasks from this list or suggest their own ideas.
+
+# 6. Recognition
+All contributors will be added to Contributors.md
+Top contributions may be featured on Reddit / DEV.to posts
+
+Your name will be credited, everyone’s help counts!
+
+# 7. Communication
+
+If you need help:
+
+- Comment on GitHub Issues
+- Send a message via Reddit (u/nullora0)
+
+We reply quickly and are happy to guide new contributors.
