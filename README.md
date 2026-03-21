@@ -4,11 +4,13 @@ A 64-bit x86 kernel built from scratch in C with no standard library, loaded by 
 <img width="887" height="318" alt="image" src="https://github.com/user-attachments/assets/17b9d958-2302-4620-bb0a-50e9489caa2c" />
 
 # Usage
-Use my tool [NUB](https://github.com/Nullora/NUB) to run and test this and modify it comfortably in QeMu.
-- After cloning, run **nub clean boot** in /bootloader/ then **nub make boot**.
-- Same for /kernel/ but after **nub clean kernel** run **nub kernel kernel**. 
-- Then go back to /bootloader/ and run **nub run boot**.
-- To flash this onto a USB and boot from it (idk why ud do that) run **sudo nub flash boot** but make sure to check the NUB readme first, all found on my profile.
+- Run:
+```c
+make // to build the project
+make run // to run it on QEMU
+make clean // clean build files
+make flash // to flash it to an usb. Make sure to go in the makefile and modify the usb name.
+```
 # Warning
 This bootloader and preset kernel work on my real hardware, it has been tested multiple times. 
 It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.
