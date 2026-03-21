@@ -37,6 +37,7 @@ void init_heap(BootInfo* bootinfo){
             heap_size = desc->NumberOfPages*4096;
             heap_base = desc->PhysicalStart;
             pages = desc->NumberOfPages;
+            heap_base = 0x4000000;
             }
         }
     current_heap_pos = heap_base;
