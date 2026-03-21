@@ -28,7 +28,7 @@ void init_idt(){
     IDTR idtr;
     idtr.IDT_size = sizeof(IDT_Table)-1;
     idtr.IDT_address = (unsigned long long)&IDT_Table;
-    for(unsigned long long i=0;i<47;i++){
+    for(unsigned long long i=0;i<256;i++){
         set_idt_entry(i, (void*)dummy_handler);
     }
     set_idt_entry(33, keyboard_handler);
