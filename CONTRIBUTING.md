@@ -13,3 +13,9 @@ Start by checking out the code itself. Not in kernel.c as thats just a testing p
 Check the other files like memory.c, tty.c, etc...
 # How to contribute
 You have to make sure the project builds and runs as intended. Do not open pull requests with code you didn't test.
+You also have to prove you tested it by attaching screenshots of the QEMU simulation to the pull request.
+Or send them to me privately via email or reddit for a quicker response, although I do reply quickly on GitHub aswell so don't think about it too much.
+# Known issues (hard)
+No known issues as of right now.
+# Known issues (easy)
+No known issues as of right now.
