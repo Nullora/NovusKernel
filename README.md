@@ -25,6 +25,6 @@ As this is super early dev, you can easily find simple bugs and fix them. Not on
 - Bitmap TTY (draw_char, draw_string, clear_screen)
 - Custom memcpy and memset
 # Known issues (hard)
-- Malloc() and free() having problems running on real hardware. see more at **/kernel/memory.c line 45**.
+- Malloc() and free() having problems running on real hardware. see more at **/kernel/memory.c line 30**.
 # Known issues (easy)
 No easy known issues as of right now ;(

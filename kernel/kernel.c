@@ -14,6 +14,7 @@ void main(BootInfo* bootinfo) {
     draw_hex(heap_base, 50, 30, 0x006400, bootinfo, backbuffer);
     draw_hex((unsigned long long)backbuffer, 50, 50, 0x006400, bootinfo, backbuffer);
     draw_hex(heap_size, 50, 70, 0x006400, bootinfo, backbuffer);
+    draw_hex(bootinfo->FrameBufferSize, 50, 90, 0x006400, bootinfo, backbuffer);
 
 
     unsigned int* screenbufer = malloc(bootinfo->FrameBufferSize); 
