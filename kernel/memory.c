@@ -43,7 +43,7 @@ void init_heap(BootInfo* bootinfo){
     current_heap_pos = heap_base;
 }
 
-//this was the single worst function i ever wrote in my fucking life
+//this was the single worst function i ever wrote in my fucking life (its crashing on a real machine)
 void* malloc(unsigned long long x){
     if(heap_start==0){
         MemHeader* b = (MemHeader*)current_heap_pos;
