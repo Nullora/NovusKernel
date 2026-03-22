@@ -45,9 +45,10 @@ usb = sda1
     sh: rm -rf (BUILD)
     sh: rm -f (BOOT_DIR)/boot.o (BOOT_DIR)/boot.so (BOOT_DIR)/boot.efi
 }
+gitmsg = V0.0.1
 /g{
     sh: git add .
-    sh: git commit -m "Fix"
+    sh: git commit -m "(gitmsg)"
     sh: git push
 }
 /i{
