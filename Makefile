@@ -1,11 +1,12 @@
 # dir
-KERNEL_DIR   = kernel
+KERNEL_DIR   = kernel/src
 BOOT_DIR     = bootloader
 BUILD        = $(KERNEL_DIR)/build
 ESP          = $(BOOT_DIR)/esp/EFI/BOOT
 
 # flags
-KFLAGS  = -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -mno-mmx -mno-sse -mno-sse2
+KFLAGS  = -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -mno-mmx -mno-sse -mno-sse2 \
+		  -I./kernel/include
 BFLAGS  = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone \
           -I/usr/include/efi -I/usr/include/efi/x86_64 -DEFI_FUNCTION_WRAPPER
 
