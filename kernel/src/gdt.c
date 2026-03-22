@@ -42,7 +42,8 @@ void init_idt(){
     set_idt_entry(14, (void*)panic_with_error);
     set_idt_entry(17, (void*)panic_with_error);
     set_idt_entry(21, (void*)panic_with_error);
-    set_idt_entry(33, keyboard_handler);
+    
+    set_idt_entry(33, (void*)keyboard_handler);
     load_idt(&idtr);
 }
 void set_idt_entry(int n, void* handler){
@@ -113,7 +114,9 @@ __attribute__((interrupt)) void keyboard_handler(void* frame){
     scancode = inb(0x60);
     outb(0x20, 0x20);
 }
-__attribute__((interrupt)) void dummy_handler(void* frame){}
+__attribute__((interrupt)) void dummy_handler(void* frame){
+    outb(0x20, 0x20);
+}
 __attribute__((interrupt)) void panic(void* frame){
     __asm__ volatile ("hlt");
 }

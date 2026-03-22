@@ -24,16 +24,17 @@ void main(BootInfo* bootinfo) {
     draw_string("NUB V2.0 WORKS WEL", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
     memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
     unsigned char last = 0;
-    unsigned long text_y = 50;
-    enable_interrupts();
-    draw_string("interrupts enabled", 50, 150, 0xFFFFFF, bootinfo, screenbufer);
+    unsigned long text_y = 70;
+    outb(0x21, inb(0x21) & ~(1<<1));
+    draw_string("interrupts enabled", 50, 50, 0xFFFFFF, bootinfo, screenbufer);
     memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
     for(;;){
-        if(last!=scancode){
-            last = scancode;
-            draw_string("keyboard interrupt", 50, text_y, 0x006400, bootinfo, screenbufer);
+        unsigned char s = inb(0x60);
+        if(s != last && s != 0){
+            last = s;
+            draw_hex(s, 50, text_y, 0x006400, bootinfo, screenbufer);
             text_y += 30;
+            memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
         }
-        memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
     }
 }

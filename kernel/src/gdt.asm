@@ -1,9 +1,12 @@
 global load_gdt
 global load_idt
 global enable_interrupts
-load_gdt:         
-    lgdt [rdi]       ; load gdt
-    ret
+load_gdt:
+    lgdt [rdi]
+    pop rax          ; save return address
+    push 0x08        ; CS  (pushed second = higher address)
+    push rax         ; RIP (pushed first = lower address)
+    retfq            ; pops RIP then CS — correct order now
 load_idt:
     lidt [rdi]       ; load idt
     ret
