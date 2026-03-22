@@ -17,7 +17,7 @@ make flash      # Flash onto USB (use with caution)
 - WARNING: The bootloader and kernel have been tested on real hardware. Running them on your machine may cause problems. QEMU is recommended for testing.
 
 # 2. Where to Start
-Look inside the /kernel/ directory.
+Look inside the /kernel/src/ directory or /kernel/include/ directory.
 Do not start in kernel.c, as that’s just a playground for testing.
 Good starting points: memory.c, tty.c, gdt.c, etc.
 
