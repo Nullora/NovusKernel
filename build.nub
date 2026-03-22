@@ -48,6 +48,9 @@ BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -
     sh: git commit -m "Fix"
     sh: git push
 }
+/i{
+    sh: sudo apt update && sudo apt install -y gcc nasm binutils ovmf qemu-system-x86 gnu-efi
+}
 main{
     fn: b
     fn: k

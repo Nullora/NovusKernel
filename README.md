@@ -29,6 +29,7 @@ nub # build bootloader and kernel
 nub r # run in QEMU
 nub f # flash onto USB (use caution)
 nub g # push to github (if youre planning to contribute or you forked the repo)
+nub i # install all dependencies. might take a few seconds
 ```
 And if you're not using NUB, you can find it [here!!!](https://github.com/Nullora/NUB)
 # Warning
