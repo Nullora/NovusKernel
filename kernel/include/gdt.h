@@ -49,7 +49,7 @@ unsigned char inb(unsigned short port);
 void init_pic();
 
 //actual interrupt functions (finally after all the shit setup)
-extern unsigned char scancode;
+extern volatile unsigned char scancode;
 void keyboard_handler(void* frame) __attribute__((interrupt));
 __attribute__((interrupt)) void dummy_handler(void* frame); //dummy handler for all the shit interrupts cz its triple faulting
 __attribute__((interrupt)) void panic(void* frame); // i need this for debugging it just halts using inline assembly

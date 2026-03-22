@@ -3,7 +3,7 @@
 
 GDT GDT_Table[3];
 IDT IDT_Table[256];
-unsigned char scancode;
+volatile unsigned char scancode;
 void init_gdt(){
     //set gdt_table values
     memset(&GDT_Table[0], 0, sizeof(GDT));
@@ -34,6 +34,14 @@ void init_idt(){
     for(unsigned long long i=32; i<254;i++){
         set_idt_entry(i, (void*)dummy_handler);
     }
+    set_idt_entry(8, (void*)panic_with_error);
+    set_idt_entry(10, (void*)panic_with_error);
+    set_idt_entry(11, (void*)panic_with_error);
+    set_idt_entry(12, (void*)panic_with_error);
+    set_idt_entry(13, (void*)panic_with_error);
+    set_idt_entry(14, (void*)panic_with_error);
+    set_idt_entry(17, (void*)panic_with_error);
+    set_idt_entry(21, (void*)panic_with_error);
     set_idt_entry(33, keyboard_handler);
     load_idt(&idtr);
 }

@@ -25,5 +25,15 @@ void main(BootInfo* bootinfo) {
     memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
     unsigned char last = 0;
     unsigned long text_y = 50;
-    for(;;);
+    enable_interrupts();
+    draw_string("interrupts enabled", 50, 150, 0xFFFFFF, bootinfo, screenbufer);
+    memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
+    for(;;){
+        if(last!=scancode){
+            last = scancode;
+            draw_string("keyboard interrupt", 50, text_y, 0x006400, bootinfo, screenbufer);
+            text_y += 30;
+        }
+        memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
+    }
 }
