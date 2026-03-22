@@ -67,4 +67,4 @@ If you need help:
 - Comment on GitHub Issues
 - Send a message via Reddit (u/nullora0)
 
-We reply quickly and are happy to guide new contributors.
+I reply quickly and im more than happy to guide new contributors.
