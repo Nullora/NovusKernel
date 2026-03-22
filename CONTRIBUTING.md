@@ -13,7 +13,7 @@ cd NovusKernel
 make clean    # clean previous build files
 make          # build kernel and bootloader
 make r      # run in QEMU
-make flash    # flash onto USB (use caution)
+make flash    # flash onto USB (MAKE SURE TO CHANGE VARIABLE <usb> TO YOUR USB NAME)
 ```
 Or if you're using the .nub file (thanks if you're using it!)
 ```bash
@@ -21,7 +21,7 @@ Or if you're using the .nub file (thanks if you're using it!)
 nub c # clean previous build files
 nub # build bootloader and kernel
 nub r # run in QEMU
-nub f # flash onto USB (use caution)
+nub f # flash onto USB (MAKE SURE TO CHANGE VARIABLE <usb> TO YOUR USB NAME)
 nub g # push to github (if youre planning to contribute or you forked the repo)
 nub i # install all dependencies. might take a few seconds
 ```

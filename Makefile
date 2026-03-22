@@ -9,7 +9,7 @@ KFLAGS  = -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -mno-mmx -m
 		  -I./kernel/include
 BFLAGS  = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone \
           -I/usr/include/efi -I/usr/include/efi/x86_64 -DEFI_FUNCTION_WRAPPER
-
+usb = sda1 #CHANGE THIS TO YOUR USB
 all: bootloader kernel
 
 # boot
@@ -68,7 +68,7 @@ r: all
 # usb flash
 flash: all
 # change sda1 to your actual usb. find it with lsblk
-	sudo mount /dev/sda1 /mnt 	
+	sudo mount /dev/$(usb) /mnt 	
 	sudo mkdir -p /mnt/EFI/BOOT
 	sudo cp $(BOOT_DIR)/boot.efi /mnt/EFI/BOOT/BOOTX64.EFI
 	sudo cp $(BUILD)/kernel.elf /mnt/kernel.elf
