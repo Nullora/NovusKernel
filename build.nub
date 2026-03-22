@@ -5,7 +5,7 @@ ESP = bootloader/esp/EFI/BOOT
 KFLAGS = -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -I./kernel/include
 BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -I/usr/include/efi -I/usr/include/efi/x86_64 -DEFI_FUNCTION_WRAPPER
 
-/bootloader{
+/b{
     sh: echo building bootloader
     sh: gcc (BFLAGS) -c (BOOT_DIR)/boot.c -o (BOOT_DIR)/boot.o
     sh: ld -nostdlib -znocombreloc -T /usr/lib/elf_x86_64_efi.lds -shared -Bsymbolic /usr/lib/crt0-efi-x86_64.o (BOOT_DIR)/boot.o -o (BOOT_DIR)/boot.so -L/usr/lib -lefi -lgnuefi
@@ -13,7 +13,7 @@ BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -
     sh: cp (BOOT_DIR)/boot.efi (ESP)/BOOTX64.EFI
 }
 
-/kernel{
+/k{
     sh: echo building kernel
     sh: mkdir -p (BUILD)
     sh: gcc (KFLAGS) -c (KERNEL_DIR)/kernel.c -o (BUILD)/kernel.o
@@ -25,11 +25,11 @@ BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -
     sh: cp (BUILD)/kernel.elf (BOOT_DIR)/esp/
 }
 
-/run{
+/r{
     sh: qemu-system-x86_64 -bios /usr/share/ovmf/OVMF.fd -drive format=raw,file=fat:rw:(BOOT_DIR)/esp -device isa-debug-exit,iobase=0x501,iosize=0x1
 }
 
-/flash{
+/f{
     sh: echo flashing
     sh: sudo mount /dev/sda1 /mnt
     sh: sudo mkdir -p /mnt/EFI/BOOT
@@ -38,7 +38,7 @@ BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -
     sh: sudo umount /mnt
 }
 
-/clean{
+/c{
     sh: echo cleaning
     sh: rm -rf (BUILD)
     sh: rm -f (BOOT_DIR)/boot.o (BOOT_DIR)/boot.so (BOOT_DIR)/boot.efi
@@ -49,7 +49,6 @@ BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -
     sh: git push
 }
 main{
-    fn: bootloader
-    fn: kernel
-
+    fn: b
+    fn: k
 }

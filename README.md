@@ -22,6 +22,15 @@ make          # build kernel and bootloader
 make r      # run in QEMU
 make flash    # flash onto USB (use caution)
 ```
+Or if you're using the .nub file (thanks if you're using it!)
+```bash
+nub c # clean previous build files
+nub # build bootloader and kernel
+nub r # run in QEMU
+nub f # flash onto USB (use caution)
+nub g # push to github (if youre planning to contribute or you forked the repo)
+```
+And if you're not using NUB, you can find it [here!!!](https://github.com/Nullora/NUB)
 # Warning
 This bootloader and preset kernel work on my real hardware and has been tested multiple times. 
 It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.

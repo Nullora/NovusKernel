@@ -21,7 +21,7 @@ void main(BootInfo* bootinfo) {
     unsigned int* screenbufer = malloc(bootinfo->FrameBufferSize); 
     draw_hex((unsigned long long)screenbufer, 50, 110, 0x006400, bootinfo, backbuffer);
     clear_screen(0x240024, bootinfo, screenbufer);
-    draw_string("MAKEFILE V2.0 WORKS", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
+    draw_string("NUB V2.0 WORKS WEL", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
     memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
     unsigned char last = 0;
     unsigned long text_y = 50;
