@@ -19,7 +19,7 @@ NovusKernel is an educational kernel project showcasing low-level OS concepts, i
 # make sure you are in the root directory (/NovusKernel)
 make clean    # clean previous build files
 make          # build kernel and bootloader
-make run      # run in QEMU
+make r      # run in QEMU
 make flash    # flash onto USB (use caution)
 ```
 # Warning

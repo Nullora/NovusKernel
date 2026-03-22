@@ -11,7 +11,7 @@ cd NovusKernel
 ```shell
 make clean      # Clean previous build files
 make            # Build the kernel and bootloader
-make run        # Run it in QEMU
+make r        # Run it in QEMU
 make flash      # Flash onto USB (use with caution)
 ```
 - WARNING: The bootloader and kernel have been tested on real hardware. Running them on your machine may cause problems. QEMU is recommended for testing.
