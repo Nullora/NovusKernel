@@ -4,6 +4,7 @@ BUILD = kernel/src/build
 ESP = bootloader/esp/EFI/BOOT
 KFLAGS = -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -I./kernel/include
 BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -I/usr/include/efi -I/usr/include/efi/x86_64 -DEFI_FUNCTION_WRAPPER
+usb = sda1
 
 /b{
     sh: echo building bootloader
@@ -31,7 +32,8 @@ BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -
 
 /f{
     sh: echo flashing
-    sh: sudo mount /dev/sda1 /mnt
+    sh: echo dont worry it asks for sudo to mount and flash, check file build.nub line 34!
+    sh: sudo mount /dev/(usb) /mnt
     sh: sudo mkdir -p /mnt/EFI/BOOT
     sh: sudo cp (BOOT_DIR)/boot.efi /mnt/EFI/BOOT/BOOTX64.EFI
     sh: sudo cp (BUILD)/kernel.elf /mnt/kernel.elf
@@ -49,6 +51,7 @@ BFLAGS = -ffreestanding -fno-stack-protector -fpic -fshort-wchar -mno-red-zone -
     sh: git push
 }
 /i{
+    sh: echo dont worry it asks for sudo to install. check file build.nub line 53!
     sh: sudo apt update && sudo apt install -y gcc nasm binutils ovmf qemu-system-x86 gnu-efi
 }
 main{
