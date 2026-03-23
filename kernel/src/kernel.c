@@ -2,6 +2,7 @@
 #include"boot.h"
 #include"tty.h"
 #include"gdt.h"
+#include"input.h"
 
 void main(BootInfo* bootinfo) {
     __asm__ volatile ("mov $0x500000, %rsp");
@@ -13,6 +14,7 @@ void main(BootInfo* bootinfo) {
     //text
     unsigned char last = 0;
     unsigned long text_y = 70;
+    unsigned long text_x = 50;
 
     unsigned int* backbuffer = bootinfo->FrameBufferBase;
     clear_screen(0x000000, bootinfo, backbuffer);
@@ -25,7 +27,7 @@ void main(BootInfo* bootinfo) {
     unsigned int* screenbufer = malloc(bootinfo->FrameBufferSize); 
     draw_hex((unsigned long long)screenbufer, 50, 110, 0x006400, bootinfo, backbuffer);
     clear_screen(0x240024, bootinfo, screenbufer);
-    draw_string("NUB V2.0 WORKS WEL", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
+    draw_string("Horrible version idk how to implement proper keyboard handling im just polling like a dork now", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
     memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
 
     for(;;){
@@ -33,8 +35,9 @@ void main(BootInfo* bootinfo) {
         if(s & 0x80) continue;
         if(s == 0 || s == last) continue;
         last = s;
-        draw_hex(s, 50, text_y, 0x006400, bootinfo, screenbufer);
-        text_y += 30;
+        if(last==0x1c) text_y += 30;
+        text_x += 8;
+        draw_char(scancode_to_ascii(s), text_x,text_y, 0xFFFFFF, bootinfo, screenbufer);
         memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
     }
 }

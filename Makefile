@@ -38,7 +38,7 @@ $(BOOT_DIR)/boot.o: $(BOOT_DIR)/boot.c
 # kernel
 kernel: $(BUILD)/kernel.elf
 
-$(BUILD)/kernel.elf: $(BUILD)/kernel.o $(BUILD)/memory.o $(BUILD)/tty.o $(BUILD)/gdt.o $(BUILD)/gdta.o
+$(BUILD)/kernel.elf: $(BUILD)/kernel.o $(BUILD)/memory.o $(BUILD)/tty.o $(BUILD)/gdt.o $(BUILD)/gdta.o $(BUILD)/input.o
 	ld -nostdlib -static -e main -Ttext 0x100000 $^ -o $@
 	cp $@ $(BOOT_DIR)/esp/
 
@@ -52,6 +52,9 @@ $(BUILD)/memory.o: $(KERNEL_DIR)/memory.c
 $(BUILD)/tty.o: $(KERNEL_DIR)/tty.c
 	gcc $(KFLAGS) -c $< -o $@
 
+$(BUILD)/input.o: $(KERNEL_DIR)/input.c
+	gcc $(KFLAGS) -c $< -o $@
+
 $(BUILD)/gdt.o: $(KERNEL_DIR)/gdt.c
 	gcc $(KFLAGS) -mgeneral-regs-only -c $< -o $@
 
@@ -59,7 +62,7 @@ $(BUILD)/gdta.o: $(KERNEL_DIR)/gdt.asm
 	nasm -f elf64 $< -o $@
 
 # wemu
-r: all
+run: all
 	qemu-system-x86_64 \
 		-bios /usr/share/ovmf/OVMF.fd \
 		-drive format=raw,file=fat:rw:$(BOOT_DIR)/esp \

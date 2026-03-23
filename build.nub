@@ -21,8 +21,9 @@ usb = sda1
     sh: gcc (KFLAGS) -c (KERNEL_DIR)/memory.c -o (BUILD)/memory.o
     sh: gcc (KFLAGS) -c (KERNEL_DIR)/tty.c -o (BUILD)/tty.o
     sh: gcc (KFLAGS) -mgeneral-regs-only -c (KERNEL_DIR)/gdt.c -o (BUILD)/gdt.o
+    sh: gcc (KFLAGS) -c (KERNEL_DIR)/input.c -o (BUILD)/input.o
     sh: nasm -f elf64 (KERNEL_DIR)/gdt.asm -o (BUILD)/gdta.o
-    sh: ld -nostdlib -static -e main -Ttext 0x100000 (BUILD)/kernel.o (BUILD)/memory.o (BUILD)/tty.o (BUILD)/gdt.o (BUILD)/gdta.o -o (BUILD)/kernel.elf
+    sh: ld -nostdlib -static -e main -Ttext 0x100000 (BUILD)/kernel.o (BUILD)/input.o (BUILD)/memory.o (BUILD)/tty.o (BUILD)/gdt.o (BUILD)/gdta.o -o (BUILD)/kernel.elf
     sh: cp (BUILD)/kernel.elf (BOOT_DIR)/esp/
 }
 
@@ -58,4 +59,5 @@ gitmsg = V0.0.1
 main{
     fn: b
     fn: k
+    fn: r
 }
