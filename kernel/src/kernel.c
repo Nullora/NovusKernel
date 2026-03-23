@@ -10,6 +10,10 @@ void main(BootInfo* bootinfo) {
     init_pic();
     init_heap(bootinfo); 
 
+    //text
+    unsigned char last = 0;
+    unsigned long text_y = 70;
+
     unsigned int* backbuffer = bootinfo->FrameBufferBase;
     clear_screen(0x000000, bootinfo, backbuffer);
     draw_hex(heap_base, 50, 30, 0x006400, bootinfo, backbuffer);
@@ -23,18 +27,14 @@ void main(BootInfo* bootinfo) {
     clear_screen(0x240024, bootinfo, screenbufer);
     draw_string("NUB V2.0 WORKS WEL", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
     memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
-    unsigned char last = 0;
-    unsigned long text_y = 70;
-    outb(0x21, inb(0x21) & ~(1<<1));
-    draw_string("interrupts enabled", 50, 50, 0xFFFFFF, bootinfo, screenbufer);
-    memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
+
     for(;;){
         unsigned char s = inb(0x60);
-        if(s != last && s != 0){
-            last = s;
-            draw_hex(s, 50, text_y, 0x006400, bootinfo, screenbufer);
-            text_y += 30;
-            memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
-        }
+        if(s & 0x80) continue;
+        if(s == 0 || s == last) continue;
+        last = s;
+        draw_hex(s, 50, text_y, 0x006400, bootinfo, screenbufer);
+        text_y += 30;
+        memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
     }
 }

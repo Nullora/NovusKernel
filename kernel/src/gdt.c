@@ -42,8 +42,8 @@ void init_idt(){
     set_idt_entry(14, (void*)panic_with_error);
     set_idt_entry(17, (void*)panic_with_error);
     set_idt_entry(21, (void*)panic_with_error);
-    
     set_idt_entry(33, (void*)keyboard_handler);
+
     load_idt(&idtr);
 }
 void set_idt_entry(int n, void* handler){
@@ -111,8 +111,8 @@ void init_pic(){
 
 //keyboard interrupt handler
 __attribute__((interrupt)) void keyboard_handler(void* frame){
+    outb(0x20, 0x20); // EOI first
     scancode = inb(0x60);
-    outb(0x20, 0x20);
 }
 __attribute__((interrupt)) void dummy_handler(void* frame){
     outb(0x20, 0x20);
