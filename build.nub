@@ -47,7 +47,7 @@ usb = sda1
     sh: rm -f (BOOT_DIR)/boot.o (BOOT_DIR)/boot.so (BOOT_DIR)/boot.efi
     sh: echo cleaned
 }
-gitmsg = Keyboard fix <not really>
+gitmsg = First command!!!!
 /g{
     sh: git add .
     sh: git commit -m "(gitmsg)"
