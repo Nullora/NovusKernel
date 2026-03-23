@@ -32,10 +32,15 @@ nub g # push to github (if youre planning to contribute or you forked the repo)
 nub i # install all dependencies. might take a few seconds
 ```
 And if you're not using NUB, you can find it [here!!!](https://github.com/Nullora/NUB)
+
+# Commands in kernel
+```bash
+help #all this does is print some stupid text i cant deal with kernel dev anymore its getting hard
+```
 # Warning
 This bootloader and preset kernel work on my real hardware and has been tested multiple times. 
 It is reccomended to not run it on any real machine as it may break unpredictably and crash your computer. I trust my creation, you don't have to.
 
-- This version worked on my real machine
+- This version froze on my real machine
 # Contributing & how to help
 Look at **CONTRIBUTING.md** for more a detailed explanation.
