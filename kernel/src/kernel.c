@@ -35,8 +35,10 @@ void main(BootInfo* bootinfo) {
         unsigned char s = inb(0x60);
         if(s & 0x80) continue;
         last = s;
-        if(last==0x1c) text_y += 30;
-
+        if(last==0x1c) {
+            text_y += 30; 
+            text_x = 30;
+        }
         text_x += 8;
         draw_char(scancode_to_ascii(s), text_x,text_y, 0xFFFFFF, bootinfo, screenbufer);
         memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
