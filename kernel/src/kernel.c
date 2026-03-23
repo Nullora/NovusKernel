@@ -26,7 +26,7 @@ void main(BootInfo* bootinfo) {
 
     unsigned int* screenbufer = malloc(bootinfo->FrameBufferSize); 
     draw_hex((unsigned long long)screenbufer, 50, 110, 0x006400, bootinfo, backbuffer);
-    clear_screen(0x240024, bootinfo, screenbufer);
+    clear_screen(0x000000, bootinfo, screenbufer);
     draw_string("Horrible version idk how to implement proper keyboard handling im just polling like a dork now", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
     memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
     char* keyboard_buffer = malloc(256);
@@ -37,7 +37,7 @@ void main(BootInfo* bootinfo) {
         last = s;
         if(last==0x1c) {
             text_y += 30; 
-            text_x = 30;
+            text_x = 38;
         }
         text_x += 8;
         draw_char(scancode_to_ascii(s), text_x,text_y, 0xFFFFFF, bootinfo, screenbufer);

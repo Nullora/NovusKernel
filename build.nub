@@ -39,14 +39,15 @@ usb = sda1
     sh: sudo cp (BOOT_DIR)/boot.efi /mnt/EFI/BOOT/BOOTX64.EFI
     sh: sudo cp (BUILD)/kernel.elf /mnt/kernel.elf
     sh: sudo umount /mnt
+    sh: echo flashed successfully
 }
 
 /c{
-    sh: echo cleaning
     sh: rm -rf (BUILD)
     sh: rm -f (BOOT_DIR)/boot.o (BOOT_DIR)/boot.so (BOOT_DIR)/boot.efi
+    sh: echo cleaned
 }
-gitmsg = Keyboard!!! <not really>
+gitmsg = Keyboard fix <not really>
 /g{
     sh: git add .
     sh: git commit -m "(gitmsg)"
@@ -55,6 +56,7 @@ gitmsg = Keyboard!!! <not really>
 /i{
     sh: echo dont worry it asks for sudo to install. check file build.nub line 53!
     sh: sudo apt update && sudo apt install -y gcc nasm binutils ovmf qemu-system-x86 gnu-efi
+    sh: echo installed dependencies
 }
 main{
     fn: b
