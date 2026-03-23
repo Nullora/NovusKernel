@@ -29,15 +29,20 @@ void main(BootInfo* bootinfo) {
     clear_screen(0x240024, bootinfo, screenbufer);
     draw_string("Horrible version idk how to implement proper keyboard handling im just polling like a dork now", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
     memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
-
+    char* keyboard_buffer = malloc(256);
     for(;;){
+        if(!(inb(0x64) & 0x01)) continue;
         unsigned char s = inb(0x60);
         if(s & 0x80) continue;
-        if(s == 0 || s == last) continue;
         last = s;
         if(last==0x1c) text_y += 30;
+
         text_x += 8;
         draw_char(scancode_to_ascii(s), text_x,text_y, 0xFFFFFF, bootinfo, screenbufer);
         memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
+        record_keyboard_to_buffer(keyboard_buffer, 256);
+        if(strcmp(keyboard_buffer,"hello")==0){
+            draw_string(scancode_to_ascii(s), 30,text_y+30, 0xFFFFFF, bootinfo, screenbufer);
+        }
     }
 }

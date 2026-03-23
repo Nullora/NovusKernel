@@ -78,3 +78,22 @@ void free(void* x){
     MemHeader* y = (MemHeader*)x-1;
     y->usage = 0;
 }
+// shell handling
+int strcmp(const char* a,const char* b){
+    int i=0;
+    while(a[i] && b[i]){
+        if(a[i]!=b[i]) return 0;
+        i++;
+    }
+    return a[i]==b[i];
+}
+int startswith(const char* s,const char* p){
+    int i=0; 
+    while(p[i]){
+        if(s[i]!=p[i]){
+            return 0; 
+            i++; 
+        }
+    } 
+    return 1; 
+}
