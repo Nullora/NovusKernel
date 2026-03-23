@@ -16,19 +16,14 @@ void main(BootInfo* bootinfo) {
     unsigned long text_y = 70;
     unsigned long text_x = 50;
 
-    unsigned int* backbuffer = bootinfo->FrameBufferBase;
-    clear_screen(0x000000, bootinfo, backbuffer);
-    draw_hex(heap_base, 50, 30, 0x006400, bootinfo, backbuffer);
-    draw_hex((unsigned long long)backbuffer, 50, 50, 0x006400, bootinfo, backbuffer);
-    draw_hex(heap_size, 50, 70, 0x006400, bootinfo, backbuffer);
-    draw_hex(bootinfo->FrameBufferSize, 50, 90, 0x006400, bootinfo, backbuffer);
+    unsigned int* screenbuffer = bootinfo->FrameBufferBase;
 
 
-    unsigned int* screenbufer = malloc(bootinfo->FrameBufferSize); 
-    draw_hex((unsigned long long)screenbufer, 50, 110, 0x006400, bootinfo, backbuffer);
-    clear_screen(0x000000, bootinfo, screenbufer);
-    draw_string("Horrible version idk how to implement proper keyboard handling im just polling like a dork now", 50, 30, 0xFFFFFF, bootinfo, screenbufer);
-    memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
+    unsigned int* backbuffer = malloc(bootinfo->FrameBufferSize); 
+    draw_hex((unsigned long long)screenbuffer, 50, 110, 0x006400, bootinfo, backbuffer);
+    clear_screen(0x000000, bootinfo, screenbuffer);
+    draw_string("Horrible version idk how to implement proper keyboard handling im just polling like a dork now", 50, 30, 0xFFFFFF, bootinfo, screenbuffer);
+    memcpy(backbuffer, screenbuffer, bootinfo->FrameBufferSize);
     char* keyboard_buffer = malloc(256);
     int i = 0;
     for(;;){
@@ -43,12 +38,12 @@ void main(BootInfo* bootinfo) {
             i=0;
         }
         text_x += 8;
-        draw_char(scancode_to_ascii(s), text_x,text_y, 0xFFFFFF, bootinfo, screenbufer);
+        draw_char(scancode_to_ascii(s), text_x,text_y, 0xFFFFFF, bootinfo, screenbuffer);
         record_keyboard_to_buffer(keyboard_buffer, scancode_to_ascii(s), &i);
         if(strcmp(keyboard_buffer,"help")==1){
-            draw_string("> Go to the GitHub read me for more information!! Don't forget to star if you havent", 50,text_y+30, 0xFFFFFF, bootinfo, screenbufer);
+            draw_string("> Go to the GitHub read me for more information!! Don't forget to star if you havent", 50,text_y+30, 0xFFFFFF, bootinfo, screenbuffer);
             text_y += 30;
         }
-        memcpy(backbuffer, screenbufer, bootinfo->FrameBufferSize);
+        memcpy(backbuffer, screenbuffer, bootinfo->FrameBufferSize);
     }
 }
