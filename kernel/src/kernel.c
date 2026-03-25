@@ -8,7 +8,6 @@ void main(BootInfo* bootinfo) {
     __asm__ volatile ("mov $0x500000, %rsp");
     init_gdt();
     init_idt();
-    init_pic();
     init_heap(bootinfo); 
 
     //text
@@ -43,6 +42,12 @@ void main(BootInfo* bootinfo) {
         if(strcmp(keyboard_buffer,"help")==1){
             draw_string("> Go to the GitHub read me for more information!! Don't forget to star if you havent", 50,text_y+30, 0xFFFFFF, bootinfo, screenbuffer);
             text_y += 30;
+            memset(keyboard_buffer, 0, 256);
+        }
+        if(strcmp(keyboard_buffer,"nub")==1){
+            draw_string("> Not available yet :c", 50,text_y+30, 0xFFFFFF, bootinfo, screenbuffer);
+            text_y += 30;
+            memset(keyboard_buffer, 0, 256);
         }
         memcpy(backbuffer, screenbuffer, bootinfo->FrameBufferSize);
     }
